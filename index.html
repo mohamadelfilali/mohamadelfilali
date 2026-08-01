@@ -3,21 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>المنصة الرسمية | Infinity Spark</title>
+  <title>الصفحة الرئيسية</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
   <style>
     :root {
       --bg: #090d16;
       --card-bg: #111827;
-      --accent: #00f2fe;
-      --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --accent: #4facfe;
       --text: #f3f4f6;
       --muted: #9ca3af;
       --border: rgba(255, 255, 255, 0.1);
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -26,7 +23,6 @@
       display: flex;
       flex-direction: column;
     }
-
     header {
       display: flex;
       justify-content: space-between;
@@ -34,124 +30,106 @@
       padding: 1.2rem 8%;
       border-bottom: 1px solid var(--border);
       background: rgba(17, 24, 39, 0.7);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
     }
-
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 700;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
     .btn {
-      background: var(--accent-gradient);
+      background: var(--accent);
       color: #000;
       font-weight: 700;
       padding: 0.6rem 1.4rem;
       border-radius: 8px;
       border: none;
       cursor: pointer;
-      transition: all 0.2s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
     }
-
-    .btn:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: var(--accent);
-    }
-
-    .hero {
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    
+    /* شاشة تسجيل الدخول الإجبارية */
+    .gate-container {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 2rem;
       text-align: center;
-      padding: 4rem 1rem;
     }
 
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      margin-bottom: 1rem;
-      line-height: 1.2;
+    /* محتوى الصفحة بعد الدخول */
+    .main-content {
+      max-width: 600px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 90%;
     }
-
-    .hero p {
-      color: var(--muted);
-      max-width: 650px;
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin-bottom: 2rem;
+    .form-group { margin-bottom: 1.2rem; text-align: right; }
+    .form-group label { display: block; margin-bottom: 0.5rem; color: var(--muted); }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #000;
+      color: #fff;
+      font-family: inherit;
     }
-
-    .user-box {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+    .form-group input[readonly] {
+      background: #1f2937;
+      color: #9ca3af;
+      cursor: not-allowed;
     }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 2px solid var(--accent);
-    }
-
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo">⚡ Infinity Spark</div>
-    
-    <div id="auth-container">
-      <!-- زر تسجيل الدخول للزوار -->
-      <button id="login-btn" class="btn">تسجيل الدخول بـ Google</button>
-
-      <!-- قائمة المالك والمستخدمين الجاهزة -->
-      <div id="user-profile" class="user-box hidden">
-        <img id="user-img" class="user-avatar" src="" alt="User">
-        <a id="dashboard-link" href="dashboard.html" class="btn hidden">لوحة التحكم ⚙️</a>
-        <button id="logout-btn" class="btn btn-outline">خروج</button>
-      </div>
+    <div>الموقع الرسمي</div>
+    <div id="user-profile" class="hidden" style="display: flex; gap: 10px; align-items: center;">
+      <span id="user-display-name"></span>
+      <a id="dashboard-btn" href="dashboard.html" class="btn hidden">لوحة التحكم ⚙️</a>
+      <button id="logout-btn" class="btn btn-outline">تسجيل الخروج</button>
     </div>
   </header>
 
-  <main class="hero">
-    <h1>مرحباً بك في منصة <span>Infinity Spark</span></h1>
-    <p>البوابة الرقمية الخاصة بإدارة وتطوير خدمات الخوادم والبوتات المتقدمة بأعلى كفاءة وأمان.</p>
-    <div style="display: flex; gap: 1rem;">
-      <a href="#about" class="btn btn-outline">تعرّف على الخدمات</a>
-    </div>
+  <!-- شاشة الدخول الإجبارية (تظهر إذا لم يسجل دخوله) -->
+  <div id="login-gate" class="gate-container">
+    <h2>يرجى تسجيل الدخول للوصول إلى الصفحة الرئيسية</h2>
+    <br>
+    <button id="login-btn" class="btn">تسجيل الدخول عبر Google</button>
+  </div>
+
+  <!-- المحتوى الرئيسي (مخفي حتى يتم تسجيل الدخول) -->
+  <main id="app-content" class="main-content hidden">
+    <h2 style="margin-bottom: 1.5rem; text-align: center;">التواصل مع فريق الدعم</h2>
+    
+    <form id="support-form">
+      <div class="form-group">
+        <label>الاسم الكامل:</label>
+        <input type="text" id="sender-name" readonly>
+      </div>
+      
+      <div class="form-group">
+        <label>البريد الإلكتروني (غير قابل للتعديل):</label>
+        <input type="email" id="sender-email" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>الرسالة:</label>
+        <textarea id="sender-message" rows="5" placeholder="اكتب رسالتك هنا..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn" style="width: 100%;">إرسال الرسالة</button>
+    </form>
   </main>
 
-  <!-- Firebase Compat SDKs -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
   <script>
-    // إعدادات Firebase الخاصة بمشروعك
     const firebaseConfig = {
       apiKey: "AIzaSyAmKRshA0eez-LDOPfd3gMErM4PHSbavvI",
       authDomain: "mohamadelfilali.firebaseapp.com",
@@ -162,41 +140,71 @@
       measurementId: "G-P5X5THHLEX"
     };
 
-    // ⚠️ استبدل هذا الإيميل ببريدك الإلكتروني الخاط بـ Google لكي تفتح لك لوحة التحكم
-    const OWNER_EMAIL = "your-email@gmail.com"; 
+    // حساب المالك الخاص بك
+    const OWNER_EMAIL = "rorminato@gmail.com"; 
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const db = firebase.firestore();
 
-    const loginBtn = document.getElementById('login-btn');
+    const loginGate = document.getElementById('login-gate');
+    const appContent = document.getElementById('app-content');
     const userProfile = document.getElementById('user-profile');
-    const userImg = document.getElementById('user-img');
-    const dashboardLink = document.getElementById('dashboard-link');
+    const dashboardBtn = document.getElementById('dashboard-btn');
+    const loginBtn = document.getElementById('login-btn');
     const logoutBtn = document.getElementById('logout-btn');
 
+    const senderName = document.getElementById('sender-name');
+    const senderEmail = document.getElementById('sender-email');
+    const supportForm = document.getElementById('support-form');
+
     loginBtn.addEventListener('click', () => {
-      auth.signInWithPopup(provider).catch(err => alert("خطأ في الدخول: " + err.message));
+      auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     });
 
     logoutBtn.addEventListener('click', () => auth.signOut());
 
+    // التحقق الإجباري من تسجيل الدخول
     auth.onAuthStateChanged(user => {
       if (user) {
-        loginBtn.classList.add('hidden');
+        // المستخدم مسجل الدخول -> إظهار الصفحة وقفل بياناته
+        loginGate.classList.add('hidden');
+        appContent.classList.remove('hidden');
         userProfile.classList.remove('hidden');
-        userImg.src = user.photoURL || 'https://via.placeholder.com/40';
 
-        // إظهار زر لوحة التحكم فقط للمالك
+        senderName.value = user.displayName || "مستخدم";
+        senderEmail.value = user.email; // الإيميل من فايربيس تلقائياً
+
+        // إذا كان المالك، يظهر زر الداشبورد
         if (user.email === OWNER_EMAIL) {
-          dashboardLink.classList.remove('hidden');
+          dashboardBtn.classList.remove('hidden');
         } else {
-          dashboardLink.classList.add('hidden');
+          dashboardBtn.classList.add('hidden');
         }
       } else {
-        loginBtn.classList.remove('hidden');
+        // غير مسجل -> إخفاء الصفحة تماماً
+        loginGate.classList.remove('hidden');
+        appContent.classList.add('hidden');
         userProfile.classList.add('hidden');
       }
+    });
+
+    // إرسال الرسالة إلى قاعدة البيانات (Firestore)
+    supportForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const messageText = document.getElementById('sender-message').value;
+
+      db.collection('messages').add({
+        name: senderName.value,
+        email: senderEmail.value,
+        message: messageText,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        alert("تم إرسال رسالتك بنجاح!");
+        document.getElementById('sender-message').value = "";
+      }).catch(err => {
+        alert("حدث خطأ أثناء الإرسال: " + err.message);
+      });
     });
   </script>
 </body>
