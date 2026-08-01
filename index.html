@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammed El Filali | المنصة الرسمية</title>
-    <!-- خط تجريدي حديث من Google Fonts -->
+    <title>Mohammed El Filali | البوابة الرسمية</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -39,6 +38,74 @@
                 radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.1) 0%, transparent 40%);
         }
 
+        /* أنيميشن الفحص والتحميل */
+        #loader-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-main);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 0.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loader-screen p {
+            margin-top: 1rem;
+            color: var(--text-body);
+            font-size: 0.95rem;
+        }
+
+        /* شاشة تسجيل الدخول الإجبارية */
+        #auth-portal-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-card h1 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-card p {
+            color: var(--text-body);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        /* الصفحة الرئيسية الفعلية */
         header {
             display: flex;
             justify-content: space-between;
@@ -47,31 +114,21 @@
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .brand-logo {
             font-size: 1.4rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
             background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
         }
 
         .btn {
             background-color: var(--accent);
             color: #ffffff;
             border: none;
-            padding: 0.65rem 1.4rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
             cursor: pointer;
             font-weight: 600;
@@ -87,23 +144,20 @@
 
         .btn:hover {
             background-color: var(--accent-hover);
-            transform: translateY(-1px);
         }
 
-        .btn-secondary {
-            background-color: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-title);
-            box-shadow: none;
+        .btn-danger {
+            background-color: #dc2626;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
         }
 
-        .btn-secondary:hover {
-            background-color: var(--border);
+        .btn-danger:hover {
+            background-color: #b91c1c;
         }
 
         .container {
             max-width: 650px;
-            margin: 4rem auto;
+            margin: 3rem auto;
             padding: 0 1.5rem;
             width: 100%;
         }
@@ -113,23 +167,6 @@
             border: 1px solid var(--border);
             border-radius: 1rem;
             padding: 2.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-header {
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .card-header h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-header p {
-            color: var(--text-body);
-            font-size: 0.95rem;
         }
 
         .form-group {
@@ -152,12 +189,6 @@
             border-radius: 0.5rem;
             color: #ffffff;
             font-size: 0.95rem;
-            transition: border-color 0.2s;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--accent);
         }
 
         input:disabled {
@@ -171,17 +202,14 @@
             min-height: 140px;
         }
 
-        .auth-banner {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px dashed var(--border);
-            padding: 2rem;
-            border-radius: 0.75rem;
-            text-align: center;
-        }
-
-        .auth-banner p {
-            color: var(--text-body);
-            margin-bottom: 1.25rem;
+        .preview-badge {
+            background: #f59e0b;
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
         }
 
         .hidden {
@@ -191,53 +219,63 @@
 </head>
 <body>
 
-    <header>
-        <div class="brand-logo">Mohammed El Filali</div>
-        <div class="nav-actions">
-            <a href="dashboard.html" id="admin-btn" class="btn btn-secondary hidden">لوحة التحكم</a>
-            <button id="auth-btn" class="btn">تسجيل الدخول بـ Google</button>
-        </div>
-    </header>
+    <!-- 1. شاشة الأنيميشن للفحص المباشر -->
+    <div id="loader-screen">
+        <div class="spinner"></div>
+        <p>جاري فحص الجلسة...</p>
+    </div>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h1>بوابة الدعم والإدارة</h1>
-                <p>قم بإرسال استفسارك أو طلبك المباشر وسأقوم بالرد عليك في أسرع وقت ممكن.</p>
-            </div>
-
-            <!-- مربع المطالبة بتسجيل الدخول -->
-            <div id="login-notice" class="auth-banner">
-                <p>يجب تسجيل الدخول باستخدام حساب Google المعتمد لتتمكن من رفع طلبك.</p>
-                <button id="banner-auth-btn" class="btn">تسجيل الدخول الآن</button>
-            </div>
-
-            <!-- نموذج التواصل -->
-            <form id="support-form" class="hidden">
-                <div class="form-group">
-                    <label>الاسم</label>
-                    <input type="text" id="user-name" disabled>
-                </div>
-                <div class="form-group">
-                    <label>البريد الإلكتروني</label>
-                    <input type="email" id="user-email" disabled>
-                </div>
-                <div class="form-group">
-                    <label>تفاصيل الطلب / الرسالة</label>
-                    <textarea id="user-message" placeholder="اكتب نص رسالتك بالتفصيل هنا..." required></textarea>
-                </div>
-                <button type="submit" id="submit-btn" class="btn" style="width: 100%;">إرسال الطلب</button>
-            </form>
+    <!-- 2. بوابّة تسجيل الدخول الإجبارية (تظهر فقط للزائر غير المسجل) -->
+    <div id="auth-portal-screen" class="hidden">
+        <div class="login-card">
+            <h1>Mohammed El Filali</h1>
+            <p>يرجى تسجيل الدخول بحساب Google للوصول إلى المنصة والخدمات.</p>
+            <button id="portal-login-btn" class="btn" style="width: 100%;">
+                تسجيل الدخول باستخدام Google
+            </button>
         </div>
     </div>
 
-    <!-- Firebase SDK v10 (ES Modules) -->
+    <!-- 3. محتوى الصفحة الرئيسية (محمي بالكامل ولا يظهر إلا بعد تسجيل الدخول) -->
+    <div id="main-content" class="hidden">
+        <header>
+            <div class="brand-logo">
+                Mohammed El Filali
+                <span id="preview-tag" class="preview-badge hidden">وضع المعاينة</span>
+            </div>
+            <button id="logout-btn" class="btn btn-danger">تسجيل الخروج</button>
+        </header>
+
+        <div class="container">
+            <div class="card">
+                <h2 style="margin-bottom: 0.5rem;">إرسال طلب / تواصل مع الإدارة</h2>
+                <p style="color: var(--text-body); margin-bottom: 2rem;">قم بإرسال رسالتك وسأقوم بالرد عليك في أسرع وقت.</p>
+
+                <form id="support-form">
+                    <div class="form-group">
+                        <label>الاسم الكامل</label>
+                        <input type="text" id="user-name" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" id="user-email" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>نص الرسالة / الطلب</label>
+                        <textarea id="user-message" placeholder="اكتب تفاصيل طلبك هنا..." required></textarea>
+                    </div>
+                    <button type="submit" id="submit-btn" class="btn" style="width: 100%;">إرسال الطلب</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK Modules -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // إعدادات Firebase الخاصة بمشروع mohamadelfilali
         const firebaseConfig = {
             projectId: "mohamadelfilali",
             authDomain: "mohamadelfilali.firebaseapp.com",
@@ -246,66 +284,78 @@
 
         const ADMIN_EMAIL = "rorminato@gmail.com";
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // UI Elements
-        const authBtn = document.getElementById('auth-btn');
-        const bannerAuthBtn = document.getElementById('banner-auth-btn');
-        const adminBtn = document.getElementById('admin-btn');
-        const loginNotice = document.getElementById('login-notice');
+        const loaderScreen = document.getElementById('loader-screen');
+        const authPortalScreen = document.getElementById('auth-portal-screen');
+        const mainContent = document.getElementById('main-content');
+        const portalLoginBtn = document.getElementById('portal-login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
         const supportForm = document.getElementById('support-form');
         const userNameInput = document.getElementById('user-name');
         const userEmailInput = document.getElementById('user-email');
         const userMessageInput = document.getElementById('user-message');
         const submitBtn = document.getElementById('submit-btn');
+        const previewTag = document.getElementById('preview-tag');
+
+        // فحص وجود رمز المعاينة الخاص بالمطور في URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPreviewMode = urlParams.get('mode') === 'preview';
 
         let currentUser = null;
 
-        // Auth Logic
-        const handleSignIn = () => {
-            signInWithPopup(auth, provider).catch((error) => {
-                alert("تعذر تسجيل الدخول: " + error.message);
-            });
-        };
-
-        authBtn.addEventListener('click', () => {
-            if (currentUser) {
-                signOut(auth);
-            } else {
-                handleSignIn();
-            }
-        });
-
-        bannerAuthBtn.addEventListener('click', handleSignIn);
-
+        // منطق فحص الجلسة مع الأنيميشن (500ms)
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
-            if (user) {
-                authBtn.textContent = "تسجيل الخروج";
-                loginNotice.classList.add('hidden');
-                supportForm.classList.remove('hidden');
+            
+            setTimeout(() => {
+                loaderScreen.style.opacity = '0';
+                setTimeout(() => loaderScreen.classList.add('hidden'), 300);
 
-                userNameInput.value = user.displayName || "مستخدم";
-                userEmailInput.value = user.email;
-
-                if (user.email === ADMIN_EMAIL) {
-                    adminBtn.classList.remove('hidden');
+                if (!user) {
+                    // زائر غير مسجل -> إخفاء الصفحة وتفعيل شاشة الدخول فقط
+                    mainContent.classList.add('hidden');
+                    authPortalScreen.classList.remove('hidden');
                 } else {
-                    adminBtn.classList.add('hidden');
+                    // مسجل الدخول -> إخفاء شاشة التسجيل
+                    authPortalScreen.classList.add('hidden');
+
+                    // فحص إذا كان المطور
+                    if (user.email === ADMIN_EMAIL && !isPreviewMode) {
+                        // إعادة توجيه تلقائية للمطور إلى لوحة التحكم
+                        window.location.href = "dashboard.html";
+                        return;
+                    }
+
+                    // إظهار وضع المعاينة إذا كان المطور داخلاً برابط المعاينة
+                    if (user.email === ADMIN_EMAIL && isPreviewMode) {
+                        previewTag.classList.remove('hidden');
+                    }
+
+                    // إظهار الصفحة الرئيسية وتعبئة البيانات
+                    mainContent.classList.remove('hidden');
+                    userNameInput.value = user.displayName || "مستخدم";
+                    userEmailInput.value = user.email;
                 }
-            } else {
-                authBtn.textContent = "تسجيل الدخول بـ Google";
-                loginNotice.classList.remove('hidden');
-                supportForm.classList.add('hidden');
-                adminBtn.classList.add('hidden');
-            }
+            }, 500); // إبقاء الأنيميشن لمدة نصف ثانية لفحص الحساب
         });
 
-        // Firestore Form Submit
+        // تسجيل الدخول
+        portalLoginBtn.addEventListener('click', () => {
+            signInWithPopup(auth, provider).catch((err) => {
+                alert("خطأ في تسجيل الدخول: " + err.message);
+            });
+        });
+
+        // تسجيل الخروج
+        logoutBtn.addEventListener('click', () => {
+            signOut(auth);
+        });
+
+        // إرسال الطلب
         supportForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const messageText = userMessageInput.value.trim();
@@ -325,7 +375,6 @@
                 alert("تم إرسال طلبك بنجاح!");
                 userMessageInput.value = "";
             } catch (error) {
-                console.error("Error sending message: ", error);
                 alert("حدث خطأ أثناء الإرسال: " + error.message);
             } finally {
                 submitBtn.disabled = false;
