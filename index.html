@@ -1,211 +1,274 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الصفحة الرئيسية</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
-  <style>
-    :root {
-      --bg: #090d16;
-      --card-bg: #111827;
-      --accent: #4facfe;
-      --text: #f3f4f6;
-      --muted: #9ca3af;
-      --border: rgba(255, 255, 255, 0.1);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'IBM Plex Sans Arabic', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 8%;
-      border-bottom: 1px solid var(--border);
-      background: rgba(17, 24, 39, 0.7);
-    }
-    .btn {
-      background: var(--accent);
-      color: #000;
-      font-weight: 700;
-      padding: 0.6rem 1.4rem;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
-    
-    /* شاشة تسجيل الدخول الإجبارية */
-    .gate-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      text-align: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed El Filali | المنصة الرسمية</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #0284c7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
 
-    /* محتوى الصفحة بعد الدخول */
-    .main-content {
-      max-width: 600px;
-      margin: 3rem auto;
-      padding: 2rem;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      width: 90%;
-    }
-    .form-group { margin-bottom: 1.2rem; text-align: right; }
-    .form-group label { display: block; margin-bottom: 0.5rem; color: var(--muted); }
-    .form-group input, .form-group textarea {
-      width: 100%;
-      padding: 0.8rem;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: #000;
-      color: #fff;
-      font-family: inherit;
-    }
-    .form-group input[readonly] {
-      background: #1f2937;
-      color: #9ca3af;
-      cursor: not-allowed;
-    }
-    .hidden { display: none !important; }
-  </style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #334155;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #475569;
+            color: var(--text-main);
+        }
+
+        .main-container {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #334155;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 0.375rem;
+            color: white;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        input:disabled {
+            background-color: #1e293b;
+            color: #64748b;
+            cursor: not-allowed;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .notice-box {
+            background-color: #334155;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div>الموقع الرسمي</div>
-    <div id="user-profile" class="hidden" style="display: flex; gap: 10px; align-items: center;">
-      <span id="user-display-name"></span>
-      <a id="dashboard-btn" href="dashboard.html" class="btn hidden">لوحة التحكم ⚙️</a>
-      <button id="logout-btn" class="btn btn-outline">تسجيل الخروج</button>
+    <header>
+        <div class="logo">Mohammed El Filali</div>
+        <div class="nav-actions">
+            <!-- زر لوحة التحكم للمسؤول فقط -->
+            <a href="dashboard.html" id="admin-btn" class="btn btn-outline hidden">لوحة التحكم</a>
+            <!-- زر تسجيل الدخول والخروج -->
+            <button id="auth-btn" class="btn">تسجيل الدخول بـ Google</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="card">
+            <h2>إرسال طلب / تواصل مع الإدارة</h2>
+
+            <!-- تنبيه يظهر في حال عدم تسجيل الدخول -->
+            <div id="login-notice" class="notice-box">
+                يرجى تسجيل الدخول أولاً لتتمكن من إرسال الرسائل.
+            </div>
+
+            <!-- نموذج التواصل -->
+            <form id="support-form" class="hidden">
+                <div class="form-group">
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="user-name" disabled>
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="user-email" disabled>
+                </div>
+                <div class="form-group">
+                    <label>رسالتك / طلبك</label>
+                    <textarea id="user-message" placeholder="اكتب طلبك أو استفسارك هنا..." required></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">إرسال الطلب</button>
+            </form>
+        </div>
     </div>
-  </header>
 
-  <!-- شاشة الدخول الإجبارية (تظهر إذا لم يسجل دخوله) -->
-  <div id="login-gate" class="gate-container">
-    <h2>يرجى تسجيل الدخول للوصول إلى الصفحة الرئيسية</h2>
-    <br>
-    <button id="login-btn" class="btn">تسجيل الدخول عبر Google</button>
-  </div>
+    <!-- SDK الخاص بـ Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-  <!-- المحتوى الرئيسي (مخفي حتى يتم تسجيل الدخول) -->
-  <main id="app-content" class="main-content hidden">
-    <h2 style="margin-bottom: 1.5rem; text-align: center;">التواصل مع فريق الدعم</h2>
-    
-    <form id="support-form">
-      <div class="form-group">
-        <label>الاسم الكامل:</label>
-        <input type="text" id="sender-name" readonly>
-      </div>
-      
-      <div class="form-group">
-        <label>البريد الإلكتروني (غير قابل للتعديل):</label>
-        <input type="email" id="sender-email" readonly>
-      </div>
+        // إعدادات مشروع Firebase الخاص بك
+        const firebaseConfig = {
+            apiKey: "AIzaSyD-EXAMPLE_KEY", // استبدل بـ apiKey الخاص بك من إعدادات المشروع
+            authDomain: "mohamadelfilali.firebaseapp.com",
+            projectId: "mohamadelfilali",
+            storageBucket: "mohamadelfilali.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
 
-      <div class="form-group">
-        <label>الرسالة:</label>
-        <textarea id="sender-message" rows="5" placeholder="اكتب رسالتك هنا..." required></textarea>
-      </div>
+        // البريد المعتمد كمسؤول
+        const ADMIN_EMAIL = "rorminato@gmail.com";
 
-      <button type="submit" class="btn" style="width: 100%;">إرسال الرسالة</button>
-    </form>
-  </main>
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+        // عناصر الواجهة
+        const authBtn = document.getElementById('auth-btn');
+        const adminBtn = document.getElementById('admin-btn');
+        const loginNotice = document.getElementById('login-notice');
+        const supportForm = document.getElementById('support-form');
+        const userNameInput = document.getElementById('user-name');
+        const userEmailInput = document.getElementById('user-email');
+        const userMessageInput = document.getElementById('user-message');
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyAmKRshA0eez-LDOPfd3gMErM4PHSbavvI",
-      authDomain: "mohamadelfilali.firebaseapp.com",
-      projectId: "mohamadelfilali",
-      storageBucket: "mohamadelfilali.firebasestorage.app",
-      messagingSenderId: "940757659354",
-      appId: "1:940757659354:web:304d393c03d64617bfffe3",
-      measurementId: "G-P5X5THHLEX"
-    };
+        let currentUser = null;
 
-    // حساب المالك الخاص بك
-    const OWNER_EMAIL = "rorminato@gmail.com"; 
+        // مراقبة حالة التسجيل
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                authBtn.textContent = "تسجيل الخروج";
+                loginNotice.classList.add('hidden');
+                supportForm.classList.remove('hidden');
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+                // تعبئة البيانات وقفلاها لحماية الهوية
+                userNameInput.value = user.displayName || "مستخدم";
+                userEmailInput.value = user.email;
 
-    const loginGate = document.getElementById('login-gate');
-    const appContent = document.getElementById('app-content');
-    const userProfile = document.getElementById('user-profile');
-    const dashboardBtn = document.getElementById('dashboard-btn');
-    const loginBtn = document.getElementById('login-btn');
-    const logoutBtn = document.getElementById('logout-btn');
+                // إظهار زر الداشبورد للمسؤول فقط
+                if (user.email === ADMIN_EMAIL) {
+                    adminBtn.classList.remove('hidden');
+                } else {
+                    adminBtn.classList.add('hidden');
+                }
+            } else {
+                authBtn.textContent = "تسجيل الدخول بـ Google";
+                loginNotice.classList.remove('hidden');
+                supportForm.classList.add('hidden');
+                adminBtn.classList.add('hidden');
+            }
+        });
 
-    const senderName = document.getElementById('sender-name');
-    const senderEmail = document.getElementById('sender-email');
-    const supportForm = document.getElementById('support-form');
+        // زر تسجيل الدخول/الخروج
+        authBtn.addEventListener('click', () => {
+            if (currentUser) {
+                signOut(auth);
+            } else {
+                signInWithPopup(auth, provider).catch((error) => {
+                    alert("حدث خطأ أثناء تسجيل الدخول: " + error.message);
+                });
+            }
+        });
 
-    loginBtn.addEventListener('click', () => {
-      auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    });
+        // إرسال البيانات إلى Firestore
+        supportForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const messageText = userMessageInput.value.trim();
 
-    logoutBtn.addEventListener('click', () => auth.signOut());
+            if (!messageText) return;
 
-    // التحقق الإجباري من تسجيل الدخول
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        // المستخدم مسجل الدخول -> إظهار الصفحة وقفل بياناته
-        loginGate.classList.add('hidden');
-        appContent.classList.remove('hidden');
-        userProfile.classList.remove('hidden');
+            try {
+                await addDoc(collection(db, "messages"), {
+                    senderName: currentUser.displayName,
+                    senderEmail: currentUser.email,
+                    message: messageText,
+                    createdAt: serverTimestamp()
+                });
 
-        senderName.value = user.displayName || "مستخدم";
-        senderEmail.value = user.email; // الإيميل من فايربيس تلقائياً
-
-        // إذا كان المالك، يظهر زر الداشبورد
-        if (user.email === OWNER_EMAIL) {
-          dashboardBtn.classList.remove('hidden');
-        } else {
-          dashboardBtn.classList.add('hidden');
-        }
-      } else {
-        // غير مسجل -> إخفاء الصفحة تماماً
-        loginGate.classList.remove('hidden');
-        appContent.classList.add('hidden');
-        userProfile.classList.add('hidden');
-      }
-    });
-
-    // إرسال الرسالة إلى قاعدة البيانات (Firestore)
-    supportForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const messageText = document.getElementById('sender-message').value;
-
-      db.collection('messages').add({
-        name: senderName.value,
-        email: senderEmail.value,
-        message: messageText,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
-        alert("تم إرسال رسالتك بنجاح!");
-        document.getElementById('sender-message').value = "";
-      }).catch(err => {
-        alert("حدث خطأ أثناء الإرسال: " + err.message);
-      });
-    });
-  </script>
+                alert("تم إرسال طلبك بنجاح!");
+                userMessageInput.value = "";
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.");
+            }
+        });
+    </script>
 </body>
 </html>
