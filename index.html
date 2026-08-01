@@ -38,6 +38,369 @@
                 radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.1) 0%, transparent 40%);
         }
 
+        /* أنيميشن فحص الجلسة */
+        #loader-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-main);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 0.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loader-screen p {
+            margin-top: 1rem;
+            color: var(--text-body);
+            font-size: 0.95rem;
+        }
+
+        /* واجهة تسجيل الدخول الإجبارية */
+        #auth-portal-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-card h1 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-card p {
+            color: var(--text-body);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        /* محتوى الصفحة الرئيسية المحمي */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 3rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand-logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            background-color: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-danger {
+            background-color: #dc2626;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+        }
+
+        .btn-danger:hover {
+            background-color: #b91c1c;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background-color: rgba(11, 15, 25, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: #ffffff;
+            font-size: 0.95rem;
+        }
+
+        input:disabled {
+            background-color: rgba(30, 41, 59, 0.4);
+            color: #64748b;
+            cursor: not-allowed;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .preview-badge {
+            background: #f59e0b;
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. شاشة الأنيميشن للفحص المباشر -->
+    <div id="loader-screen">
+        <div class="spinner"></div>
+        <p>جاري فحص الجلسة...</p>
+    </div>
+
+    <!-- 2. شاشة الدخول الإجبارية للزوار غير المسجلين -->
+    <div id="auth-portal-screen" class="hidden">
+        <div class="login-card">
+            <h1>Mohammed El Filali</h1>
+            <p>يرجى تسجيل الدخول بحساب Google للوصول إلى المنصة والخدمات.</p>
+            <button id="portal-login-btn" class="btn" style="width: 100%;">
+                تسجيل الدخول باستخدام Google
+            </button>
+        </div>
+    </div>
+
+    <!-- 3. محتوى الصفحة الرئيسية المحمي -->
+    <div id="main-content" class="hidden">
+        <header>
+            <div class="brand-logo">
+                Mohammed El Filali
+                <span id="preview-tag" class="preview-badge hidden">وضع المعاينة</span>
+            </div>
+            <button id="logout-btn" class="btn btn-danger">تسجيل الخروج</button>
+        </header>
+
+        <div class="container">
+            <div class="card">
+                <h2 style="margin-bottom: 0.5rem;">إرسال طلب / تواصل مع الإدارة</h2>
+                <p style="color: var(--text-body); margin-bottom: 2rem;">قم بإرسال رسالتك وسأقوم بالرد عليك في أسرع وقت.</p>
+
+                <form id="support-form">
+                    <div class="form-group">
+                        <label>الاسم الكامل</label>
+                        <input type="text" id="user-name" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" id="user-email" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>نص الرسالة / الطلب</label>
+                        <textarea id="user-message" placeholder="اكتب تفاصيل طلبك هنا..." required></textarea>
+                    </div>
+                    <button type="submit" id="submit-btn" class="btn" style="width: 100%;">إرسال الطلب</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK Modules -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // إعدادات Firebase الخاصة بك الحقيقية
+        const firebaseConfig = {
+            apiKey: "AIzaSyAmKRshA0eez-LDOPfd3gMErM4PHSbavvI",
+            authDomain: "mohamadelfilali.firebaseapp.com",
+            projectId: "mohamadelfilali",
+            storageBucket: "mohamadelfilali.firebasestorage.app",
+            messagingSenderId: "940757659354",
+            appId: "1:940757659354:web:304d393c03d64617bfffe3",
+            measurementId: "G-P5X5THHLEX"
+        };
+
+        const ADMIN_EMAIL = "rorminato@gmail.com";
+
+        // عناصر الواجهة
+        const loaderScreen = document.getElementById('loader-screen');
+        const authPortalScreen = document.getElementById('auth-portal-screen');
+        const mainContent = document.getElementById('main-content');
+        const portalLoginBtn = document.getElementById('portal-login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const supportForm = document.getElementById('support-form');
+        const userNameInput = document.getElementById('user-name');
+        const userEmailInput = document.getElementById('user-email');
+        const userMessageInput = document.getElementById('user-message');
+        const submitBtn = document.getElementById('submit-btn');
+        const previewTag = document.getElementById('preview-tag');
+
+        // دالة إخفاء شاشة التحميل (Loader)
+        function hideLoader() {
+            loaderScreen.style.opacity = '0';
+            setTimeout(() => {
+                loaderScreen.classList.add('hidden');
+            }, 300);
+        }
+
+        // فحص وجود رمز المعاينة الخاص بالمطور في URL (?mode=preview)
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPreviewMode = urlParams.get('mode') === 'preview';
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        let currentUser = null;
+
+        // مراقبة حالة تسجيل الدخول
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+
+            // تأخير 500ms لإظهار أنيميشن الفحص بشكل سلس
+            setTimeout(() => {
+                hideLoader();
+
+                if (!user) {
+                    // زائر غير مسجل -> عرض شاشة تسجيل الدخول فقط
+                    mainContent.classList.add('hidden');
+                    authPortalScreen.classList.remove('hidden');
+                } else {
+                    // مسجل الدخول -> إخفاء شاشة التسجيل
+                    authPortalScreen.classList.add('hidden');
+
+                    // توجيه تلقائي للمطور إلى dashboard.html إلا إذا كان في وضع المعاينة
+                    if (user.email === ADMIN_EMAIL && !isPreviewMode) {
+                        window.location.href = "dashboard.html";
+                        return;
+                    }
+
+                    // إظهار شارة وضع المعاينة للمطور
+                    if (user.email === ADMIN_EMAIL && isPreviewMode) {
+                        previewTag.classList.remove('hidden');
+                    }
+
+                    // إظهار محتوى الصفحة وتعبئة البيانات القادمة من Google
+                    mainContent.classList.remove('hidden');
+                    userNameInput.value = user.displayName || "مستخدم";
+                    userEmailInput.value = user.email;
+                }
+            }, 500);
+        });
+
+        // زر تسجيل الدخول بواسطة Google
+        portalLoginBtn.addEventListener('click', () => {
+            signInWithPopup(auth, provider).catch((err) => {
+                alert("حدث خطأ أثناء تسجيل الدخول: " + err.message);
+            });
+        });
+
+        // زر تسجيل الخروج
+        logoutBtn.addEventListener('click', () => {
+            signOut(auth);
+        });
+
+        // إرسال الطلب وحفظه في Firestore
+        supportForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const messageText = userMessageInput.value.trim();
+            if (!messageText) return;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "جاري الإرسال...";
+
+            try {
+                await addDoc(collection(db, "messages"), {
+                    senderName: currentUser.displayName,
+                    senderEmail: currentUser.email,
+                    message: messageText,
+                    createdAt: serverTimestamp()
+                });
+
+                alert("تم إرسال طلبك بنجاح!");
+                userMessageInput.value = "";
+            } catch (error) {
+                alert("حدث خطأ أثناء الإرسال: " + error.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "إرسال الطلب";
+            }
+        });
+    </script>
+</body>
+</html>                radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.1) 0%, transparent 40%);
+        }
+
         /* شاشة الأنيميشن */
         #loader-screen {
             position: fixed;
