@@ -1,23 +1,23 @@
-<!-- حماية الداشبورد عن طريق Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
 <script>
   const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyAmKRshA0eez-LDOPfd3gMErM4PHSbavvI",
+    authDomain: "mohamadelfilali.firebaseapp.com",
+    projectId: "mohamadelfilali",
+    storageBucket: "mohamadelfilali.firebasestorage.app",
+    messagingSenderId: "940757659354",
+    appId: "1:940757659354:web:304d393c03d64617bfffe3",
+    measurementId: "G-P5X5THHLEX"
   };
 
-  const OWNER_EMAIL = "your-email@gmail.com"; // جيمايل المالك
+  const OWNER_EMAIL = "ضع_بريدك_هنا@gmail.com";
 
   firebase.initializeApp(firebaseConfig);
 
+  // إذا حاول شخص غير المالك فتح الصفحة يتم طرده فوراً للصفحة الرئيسية
   firebase.auth().onAuthStateChanged(user => {
-    // إذا لم يسجل دخوله أو لم يكن هو المالك، يتم إعادة توجيهه تلقائياً للصفحة الرئيسية
     if (!user || user.email !== OWNER_EMAIL) {
       window.location.href = 'index.html';
     }
