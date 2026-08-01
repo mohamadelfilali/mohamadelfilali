@@ -1,25 +1,38 @@
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة التحكم الإدارية</title>
+  
+  <!-- حماية صفحة الداشبورد بواسطة Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAmKRshA0eez-LDOPfd3gMErM4PHSbavvI",
+      authDomain: "mohamadelfilali.firebaseapp.com",
+      projectId: "mohamadelfilali",
+      storageBucket: "mohamadelfilali.firebasestorage.app",
+      messagingSenderId: "940757659354",
+      appId: "1:940757659354:web:304d393c03d64617bfffe3",
+      measurementId: "G-P5X5THHLEX"
+    };
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAmKRshA0eez-LDOPfd3gMErM4PHSbavvI",
-    authDomain: "mohamadelfilali.firebaseapp.com",
-    projectId: "mohamadelfilali",
-    storageBucket: "mohamadelfilali.firebasestorage.app",
-    messagingSenderId: "940757659354",
-    appId: "1:940757659354:web:304d393c03d64617bfffe3",
-    measurementId: "G-P5X5THHLEX"
-  };
+    // ⚠️ نفس بريدك الإلكتروني كمالك
+    const OWNER_EMAIL = "your-email@gmail.com"; 
 
-  const OWNER_EMAIL = "ضع_بريدك_هنا@gmail.com";
+    firebase.initializeApp(firebaseConfig);
 
-  firebase.initializeApp(firebaseConfig);
-
-  // إذا حاول شخص غير المالك فتح الصفحة يتم طرده فوراً للصفحة الرئيسية
-  firebase.auth().onAuthStateChanged(user => {
-    if (!user || user.email !== OWNER_EMAIL) {
-      window.location.href = 'index.html';
-    }
-  });
-</script>
+    // حظر أي شخص ليس هو المالك وإعادته للرئيسية فوراً
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user || user.email !== OWNER_EMAIL) {
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+</head>
+<body>
+  <!-- هنا تضع كود لوحة التحكم وتدبير البوتات الذي عملنا عليه سابقاً -->
+  <h1>مرحباً بك في لوحة التحكم الخاصة بالمالك</h1>
+</body>
+</html>
