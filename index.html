@@ -38,7 +38,7 @@
                 radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.1) 0%, transparent 40%);
         }
 
-        /* أنيميشن الفحص والتحميل */
+        /* شاشة الأنيميشن */
         #loader-screen {
             position: fixed;
             top: 0;
@@ -74,7 +74,7 @@
             font-size: 0.95rem;
         }
 
-        /* شاشة تسجيل الدخول الإجبارية */
+        /* بوابة الدخول الإجبارية */
         #auth-portal-screen {
             display: flex;
             justify-content: center;
@@ -105,7 +105,7 @@
             margin-bottom: 2rem;
         }
 
-        /* الصفحة الرئيسية الفعلية */
+        /* محتوى الصفحة الرئيسية */
         header {
             display: flex;
             justify-content: space-between;
@@ -225,7 +225,7 @@
         <p>جاري فحص الجلسة...</p>
     </div>
 
-    <!-- 2. بوابّة تسجيل الدخول الإجبارية (تظهر فقط للزائر غير المسجل) -->
+    <!-- 2. شاشة الدخول الإجبارية للزوار غير المسجلين -->
     <div id="auth-portal-screen" class="hidden">
         <div class="login-card">
             <h1>Mohammed El Filali</h1>
@@ -236,7 +236,7 @@
         </div>
     </div>
 
-    <!-- 3. محتوى الصفحة الرئيسية (محمي بالكامل ولا يظهر إلا بعد تسجيل الدخول) -->
+    <!-- 3. الصفحة الرئيسية المحمية -->
     <div id="main-content" class="hidden">
         <header>
             <div class="brand-logo">
@@ -284,11 +284,7 @@
 
         const ADMIN_EMAIL = "rorminato@gmail.com";
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
-
+        // عناصر الواجهة
         const loaderScreen = document.getElementById('loader-screen');
         const authPortalScreen = document.getElementById('auth-portal-screen');
         const mainContent = document.getElementById('main-content');
@@ -301,50 +297,77 @@
         const submitBtn = document.getElementById('submit-btn');
         const previewTag = document.getElementById('preview-tag');
 
-        // فحص وجود رمز المعاينة الخاص بالمطور في URL
+        // كود آمن لإخفاء شاشة التحميل مهما حدث
+        function hideLoader() {
+            loaderScreen.style.opacity = '0';
+            setTimeout(() => {
+                loaderScreen.classList.add('hidden');
+            }, 300);
+        }
+
+        // إخفاء الـ Loader تلقائياً بعد 500ms كحد أقصى تجنباً للتعليق
+        let loaderHidden = false;
+        const safetyTimer = setTimeout(() => {
+            if (!loaderHidden) {
+                loaderHidden = true;
+                hideLoader();
+                // إذا لم يستجب Firebase، اعرض شاشة الدخول تلقائياً
+                if (mainContent.classList.contains('hidden')) {
+                    authPortalScreen.classList.remove('hidden');
+                }
+            }
+        }, 600);
+
+        // فحص رمز المعاينة
         const urlParams = new URLSearchParams(window.location.search);
         const isPreviewMode = urlParams.get('mode') === 'preview';
 
+        let app, auth, db, provider;
         let currentUser = null;
 
-        // منطق فحص الجلسة مع الأنيميشن (500ms)
-        onAuthStateChanged(auth, (user) => {
-            currentUser = user;
-            
-            setTimeout(() => {
-                loaderScreen.style.opacity = '0';
-                setTimeout(() => loaderScreen.classList.add('hidden'), 300);
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            provider = new GoogleAuthProvider();
+
+            onAuthStateChanged(auth, (user) => {
+                currentUser = user;
+
+                if (!loaderHidden) {
+                    loaderHidden = true;
+                    hideLoader();
+                }
 
                 if (!user) {
-                    // زائر غير مسجل -> إخفاء الصفحة وتفعيل شاشة الدخول فقط
                     mainContent.classList.add('hidden');
                     authPortalScreen.classList.remove('hidden');
                 } else {
-                    // مسجل الدخول -> إخفاء شاشة التسجيل
                     authPortalScreen.classList.add('hidden');
 
-                    // فحص إذا كان المطور
                     if (user.email === ADMIN_EMAIL && !isPreviewMode) {
-                        // إعادة توجيه تلقائية للمطور إلى لوحة التحكم
                         window.location.href = "dashboard.html";
                         return;
                     }
 
-                    // إظهار وضع المعاينة إذا كان المطور داخلاً برابط المعاينة
                     if (user.email === ADMIN_EMAIL && isPreviewMode) {
                         previewTag.classList.remove('hidden');
                     }
 
-                    // إظهار الصفحة الرئيسية وتعبئة البيانات
                     mainContent.classList.remove('hidden');
                     userNameInput.value = user.displayName || "مستخدم";
                     userEmailInput.value = user.email;
                 }
-            }, 500); // إبقاء الأنيميشن لمدة نصف ثانية لفحص الحساب
-        });
+            });
+        } catch (e) {
+            console.error("Firebase init error:", e);
+            hideLoader();
+            authPortalScreen.classList.remove('hidden');
+        }
 
         // تسجيل الدخول
         portalLoginBtn.addEventListener('click', () => {
+            if (!auth) return alert("Firebase لم يتم تهيئته بمفتاح صحيح بعد.");
             signInWithPopup(auth, provider).catch((err) => {
                 alert("خطأ في تسجيل الدخول: " + err.message);
             });
@@ -352,7 +375,7 @@
 
         // تسجيل الخروج
         logoutBtn.addEventListener('click', () => {
-            signOut(auth);
+            if (auth) signOut(auth);
         });
 
         // إرسال الطلب
