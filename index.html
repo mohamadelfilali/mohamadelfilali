@@ -1,151 +1,66 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الموقع الرسمي | منصة خدمات Minecraft</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
-  <style>
-    :root {
-      --bg: #07111d;
-      --panel: #0d1b2a;
-      --line: #213b52;
-      --teal: #58ded2;
-      --text: #e7f5f8;
-      --muted: #7692a7;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'IBM Plex Sans Arabic', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 5%;
-      border-bottom: 1px solid var(--line);
-      background: rgba(13, 27, 42, 0.8);
-      backdrop-filter: blur(10px);
-    }
-    .logo { font-size: 20px; font-weight: 700; color: var(--teal); display: flex; align-items: center; gap: 8px; }
-    .btn {
-      background: var(--teal);
-      color: #07111d;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .btn:hover { opacity: 0.9; transform: translateY(-2px); }
-    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--line); }
-    .hero {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 60px 20px;
-    }
-    .hero h1 { font-size: clamp(32px, 5vw, 56px); margin-bottom: 16px; }
-    .hero h1 span { color: var(--teal); }
-    .hero p { color: var(--muted); max-width: 600px; font-size: 16px; line-height: 1.8; margin-bottom: 30px; }
-    .user-profile { display: flex; align-items: center; gap: 12px; }
-    .user-profile img { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--teal); }
-    .hidden { display: none !important; }
-  </style>
-</head>
-<body>
+<!-- مكتبات Firebase SDK المتوافقة مع المتصفح -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-  <header>
-    <div class="logo">✦ Minecraft Command Center</div>
-    <div id="auth-section">
-      <!-- زر تسجيل الدخول بالجيمايل -->
-      <button id="login-btn" class="btn">تسجيل الدخول بـ Google</button>
+<script>
+  // بيانات مشروعك الفعلي من Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyAmKRshA0eez-LDOPfd3gMErM4PHSbavvI",
+    authDomain: "mohamadelfilali.firebaseapp.com",
+    projectId: "mohamadelfilali",
+    storageBucket: "mohamadelfilali.firebasestorage.app",
+    messagingSenderId: "940757659354",
+    appId: "1:940757659354:web:304d393c03d64617bfffe3",
+    measurementId: "G-P5X5THHLEX"
+  };
 
-      <!-- خيارات المالك بعد التسجيل -->
-      <div id="user-section" class="user-profile hidden">
-        <img id="user-photo" src="" alt="User">
-        <button id="dashboard-btn" class="btn hidden">لوحة التحكم ⚙</button>
-        <button id="logout-btn" class="btn btn-outline">خروج</button>
-      </div>
-    </div>
-  </header>
+  // ضع هنا بريدك الإلكتروني كمالك للموقع
+  const OWNER_EMAIL = "ضع_بريدك_هنا@gmail.com"; 
 
-  <main class="hero">
-    <h1>أفضل منصة لإدارة وتطوير <span>خوادم Minecraft</span></h1>
-    <p>مرحباً بك في واجهة الخدمات المخصصة. توفر المنصة حلولاً متقدمة للتحكم التلقائي وإدارة البوتات والتفاعل مع الخوادم بسرعة عالية وأمان تام.</p>
-    <div>
-      <a href="#services" class="btn btn-outline" style="text-decoration:none; display:inline-block;">استكشف الخدمات</a>
-    </div>
-  </main>
+  // تهيئة Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const provider = new firebase.auth.GoogleAuthProvider();
 
-  <!-- مستودعات Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  // العناصر من الصفحة
+  const loginBtn = document.getElementById('login-btn');
+  const userSection = document.getElementById('user-section');
+  const userPhoto = document.getElementById('user-photo');
+  const dashboardBtn = document.getElementById('dashboard-btn');
+  const logoutBtn = document.getElementById('logout-btn');
 
-  <script>
-    // 1. ضع بيانات مشروعك في Firebase هنا
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    // 2. البريد الإلكتروني الخاص بك كمالك
-    const OWNER_EMAIL = "your-email@gmail.com"; // ضع جيمايلك هنا
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    const loginBtn = document.getElementById('login-btn');
-    const userSection = document.getElementById('user-section');
-    const userPhoto = document.getElementById('user-photo');
-    const dashboardBtn = document.getElementById('dashboard-btn');
-    const logoutBtn = document.getElementById('logout-btn');
-
-    // تسجيل الدخول مع Google
-    loginBtn.addEventListener('click', () => {
-      auth.signInWithPopup(provider).catch(err => alert("خطأ في تسجيل الدخول: " + err.message));
+  // تسجيل الدخول بالحساب
+  loginBtn.addEventListener('click', () => {
+    auth.signInWithPopup(provider).catch(err => {
+      console.error(err);
+      alert("حدث خطأ أثناء تسجيل الدخول: " + err.message);
     });
+  });
 
-    // تسجيل الخروج
-    logoutBtn.addEventListener('click', () => auth.signOut());
+  // تسجيل الخروج
+  logoutBtn.addEventListener('click', () => auth.signOut());
 
-    // للانتقال للداشبورد
-    dashboardBtn.addEventListener('click', () => {
-      window.location.href = 'dashboard.html';
-    });
+  // التوجيه لصفحة لوحة التحكم
+  dashboardBtn.addEventListener('click', () => {
+    window.location.href = 'dashboard.html';
+  });
 
-    // مراقبة حالة الحساب
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        loginBtn.classList.add('hidden');
-        userSection.classList.remove('hidden');
-        userPhoto.src = user.photoURL || 'https://via.placeholder.com/36';
+  // التحقق المباشر من حالة المستخدم
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      loginBtn.classList.add('hidden');
+      userSection.classList.remove('hidden');
+      userPhoto.src = user.photoURL || 'https://via.placeholder.com/36';
 
-        // التحقق مما إذا كان المستخدم هو المالك
-        if (user.email === OWNER_EMAIL) {
-          dashboardBtn.classList.remove('hidden');
-        } else {
-          dashboardBtn.classList.add('hidden');
-        }
+      // إظهار زر الداشبورد فقط إذا كان البريد يطابق بريد المالك
+      if (user.email === OWNER_EMAIL) {
+        dashboardBtn.classList.remove('hidden');
       } else {
-        loginBtn.classList.remove('hidden');
-        userSection.classList.add('hidden');
+        dashboardBtn.classList.add('hidden');
       }
-    });
-  </script>
-</body>
-</html>
+    } else {
+      loginBtn.classList.remove('hidden');
+      userSection.classList.add('hidden');
+    }
+  });
+</script>
