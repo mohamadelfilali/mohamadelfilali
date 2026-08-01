@@ -1,66 +1,203 @@
-<!-- مكتبات Firebase SDK المتوافقة مع المتصفح -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-
-<script>
-  // بيانات مشروعك الفعلي من Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyAmKRshA0eez-LDOPfd3gMErM4PHSbavvI",
-    authDomain: "mohamadelfilali.firebaseapp.com",
-    projectId: "mohamadelfilali",
-    storageBucket: "mohamadelfilali.firebasestorage.app",
-    messagingSenderId: "940757659354",
-    appId: "1:940757659354:web:304d393c03d64617bfffe3",
-    measurementId: "G-P5X5THHLEX"
-  };
-
-  // ضع هنا بريدك الإلكتروني كمالك للموقع
-  const OWNER_EMAIL = "rorminato@gmail.com"; 
-
-  // تهيئة Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
-
-  // العناصر من الصفحة
-  const loginBtn = document.getElementById('login-btn');
-  const userSection = document.getElementById('user-section');
-  const userPhoto = document.getElementById('user-photo');
-  const dashboardBtn = document.getElementById('dashboard-btn');
-  const logoutBtn = document.getElementById('logout-btn');
-
-  // تسجيل الدخول بالحساب
-  loginBtn.addEventListener('click', () => {
-    auth.signInWithPopup(provider).catch(err => {
-      console.error(err);
-      alert("حدث خطأ أثناء تسجيل الدخول: " + err.message);
-    });
-  });
-
-  // تسجيل الخروج
-  logoutBtn.addEventListener('click', () => auth.signOut());
-
-  // التوجيه لصفحة لوحة التحكم
-  dashboardBtn.addEventListener('click', () => {
-    window.location.href = 'dashboard.html';
-  });
-
-  // التحقق المباشر من حالة المستخدم
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      loginBtn.classList.add('hidden');
-      userSection.classList.remove('hidden');
-      userPhoto.src = user.photoURL || 'https://via.placeholder.com/36';
-
-      // إظهار زر الداشبورد فقط إذا كان البريد يطابق بريد المالك
-      if (user.email === OWNER_EMAIL) {
-        dashboardBtn.classList.remove('hidden');
-      } else {
-        dashboardBtn.classList.add('hidden');
-      }
-    } else {
-      loginBtn.classList.remove('hidden');
-      userSection.classList.add('hidden');
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المنصة الرسمية | Infinity Spark</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --accent: #00f2fe;
+      --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --border: rgba(255, 255, 255, 0.1);
     }
-  });
-</script>
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans Arabic', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 8%;
+      border-bottom: 1px solid var(--border);
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn {
+      background: var(--accent-gradient);
+      color: #000;
+      font-weight: 700;
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent);
+    }
+
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 650px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .user-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">⚡ Infinity Spark</div>
+    
+    <div id="auth-container">
+      <!-- زر تسجيل الدخول للزوار -->
+      <button id="login-btn" class="btn">تسجيل الدخول بـ Google</button>
+
+      <!-- قائمة المالك والمستخدمين الجاهزة -->
+      <div id="user-profile" class="user-box hidden">
+        <img id="user-img" class="user-avatar" src="" alt="User">
+        <a id="dashboard-link" href="dashboard.html" class="btn hidden">لوحة التحكم ⚙️</a>
+        <button id="logout-btn" class="btn btn-outline">خروج</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="hero">
+    <h1>مرحباً بك في منصة <span>Infinity Spark</span></h1>
+    <p>البوابة الرقمية الخاصة بإدارة وتطوير خدمات الخوادم والبوتات المتقدمة بأعلى كفاءة وأمان.</p>
+    <div style="display: flex; gap: 1rem;">
+      <a href="#about" class="btn btn-outline">تعرّف على الخدمات</a>
+    </div>
+  </main>
+
+  <!-- Firebase Compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // إعدادات Firebase الخاصة بمشروعك
+    const firebaseConfig = {
+      apiKey: "AIzaSyAmKRshA0eez-LDOPfd3gMErM4PHSbavvI",
+      authDomain: "mohamadelfilali.firebaseapp.com",
+      projectId: "mohamadelfilali",
+      storageBucket: "mohamadelfilali.firebasestorage.app",
+      messagingSenderId: "940757659354",
+      appId: "1:940757659354:web:304d393c03d64617bfffe3",
+      measurementId: "G-P5X5THHLEX"
+    };
+
+    // ⚠️ استبدل هذا الإيميل ببريدك الإلكتروني الخاط بـ Google لكي تفتح لك لوحة التحكم
+    const OWNER_EMAIL = "your-email@gmail.com"; 
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    const loginBtn = document.getElementById('login-btn');
+    const userProfile = document.getElementById('user-profile');
+    const userImg = document.getElementById('user-img');
+    const dashboardLink = document.getElementById('dashboard-link');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    loginBtn.addEventListener('click', () => {
+      auth.signInWithPopup(provider).catch(err => alert("خطأ في الدخول: " + err.message));
+    });
+
+    logoutBtn.addEventListener('click', () => auth.signOut());
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        loginBtn.classList.add('hidden');
+        userProfile.classList.remove('hidden');
+        userImg.src = user.photoURL || 'https://via.placeholder.com/40';
+
+        // إظهار زر لوحة التحكم فقط للمالك
+        if (user.email === OWNER_EMAIL) {
+          dashboardLink.classList.remove('hidden');
+        } else {
+          dashboardLink.classList.add('hidden');
+        }
+      } else {
+        loginBtn.classList.remove('hidden');
+        userProfile.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
