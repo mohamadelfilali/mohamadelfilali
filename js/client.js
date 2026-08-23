@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         لا تغيّر هذا الآن.
     */
 
-    const API_URL = "";
+    const API_URL = "https://script.google.com/macros/s/AKfycbyRlYEPfl1o_AAefu5NwBcc8M9FGBz9p0Vl4fta92klQIKgOXCp_sKCOo3_Pi3M8n5zXg/exec";
 
 
     // =====================================================
