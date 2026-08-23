@@ -1,11 +1,10 @@
 /* ==========================================================================
-   تنسيقات لوحة التحكم الاحترافية — Modern Executive Dashboard Theme
+   تنسيقات لوحة التحكم — admin.css
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
 
 :root {
-    /* لوحة الألوان الرئيسية (Slate & Electric Blue) */
     --bg-body: #0b0f19;
     --bg-card: #151c2c;
     --bg-card-hover: #1e293b;
@@ -18,8 +17,9 @@
     --border-color: rgba(255, 255, 255, 0.08);
     --border-focus: #6366f1;
     --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --success: #10b981;
     
-    /* المتغيرات الهيكلية */
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
@@ -44,11 +44,10 @@ body {
     line-height: 1.6;
 }
 
-/* تأثيرات الحركة (Animations) */
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(10px);
     }
     to {
         opacity: 1;
@@ -56,171 +55,9 @@ body {
     }
 }
 
-@keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 0 15px var(--primary-glow); }
-    50% { box-shadow: 0 0 25px rgba(79, 70, 229, 0.45); }
-}
-
 /* ==========================================================================
-   شاشة تسجيل الدخول
+   الهيدر وزر تسجيل الخروج
    ========================================================================== */
-.login-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
-    background: radial-gradient(circle at top right, #1e1b4b 0%, #0b0f19 70%);
-}
-
-.login-card {
-    width: 100%;
-    max-width: 420px;
-    padding: 36px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    animation: fadeInUp 0.4s ease-out;
-    backdrop-filter: blur(12px);
-}
-
-.login-card h2 {
-    font-size: 1.4rem;
-    font-weight: 800;
-    margin-bottom: 24px;
-    text-align: center;
-    color: var(--text-main);
-    letter-spacing: -0.5px;
-}
-
-/* ==========================================================================
-   الحقول والمدخلات
-   ========================================================================== */
-.form-field {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-field label {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--text-muted);
-}
-
-.form-field input,
-.form-field textarea {
-    width: 100%;
-    padding: 12px 16px;
-    background-color: var(--bg-input);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    color: var(--text-main);
-    font-family: inherit;
-    font-size: 0.95rem;
-    transition: var(--transition);
-    outline: none;
-}
-
-.form-field input:focus,
-.form-field textarea:focus {
-    border-color: var(--border-focus);
-    box-shadow: 0 0 0 3px var(--primary-glow);
-}
-
-.image-input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 16px;
-    border-radius: var(--radius-sm);
-    border: 1px dashed var(--border-color);
-}
-
-.divider-text {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    text-align: center;
-    position: relative;
-}
-
-small {
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    margin-top: 4px;
-    display: block;
-}
-
-/* ==========================================================================
-   الأزرار والتحكم
-   ========================================================================== */
-.button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 24px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    font-weight: 700;
-    border-radius: var(--radius-sm);
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-    text-decoration: none;
-}
-
-.button-primary {
-    background-color: var(--primary);
-    color: #ffffff;
-    box-shadow: 0 4px 14px var(--primary-glow);
-}
-
-.button-primary:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-2px);
-}
-
-.button-secondary {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-main);
-    border: 1px solid var(--border-color);
-}
-
-.button-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-}
-
-.submit-btn {
-    width: 100%;
-    margin-top: 8px;
-}
-
-.form-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 12px;
-}
-
-.form-status {
-    margin-top: 16px;
-    font-size: 0.9rem;
-    text-align: center;
-    min-height: 20px;
-}
-
-/* ==========================================================================
-   اللوحة الرئيسية والهيدر
-   ========================================================================== */
-.dashboard-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
 .admin-header {
     background-color: var(--bg-card);
     border-bottom: 1px solid var(--border-color);
@@ -228,7 +65,6 @@ small {
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(12px);
 }
 
 .container {
@@ -255,7 +91,6 @@ small {
     font-weight: 800;
     padding: 6px 14px;
     border-radius: var(--radius-sm);
-    letter-spacing: 1px;
     font-size: 0.9rem;
 }
 
@@ -264,15 +99,52 @@ small {
     font-size: 1.1rem;
 }
 
-.admin-main {
-    padding-top: 32px;
-    padding-bottom: 60px;
-    animation: fadeInUp 0.4s ease-out;
+/* إعدادات زر تسجيل الخروج لضمان استجابة النقر */
+#logout-btn {
+    cursor: pointer;
+    position: relative;
+    z-index: 101;
+    user-select: none;
 }
 
 /* ==========================================================================
-   التبويبات (Tabs Navigation)
+   شاشة تسجيل الدخول
    ========================================================================== */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: radial-gradient(circle at top right, #1e1b4b 0%, #0b0f19 70%);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 36px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    animation: fadeInUp 0.4s ease-out;
+}
+
+.login-card h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* ==========================================================================
+   التبويبات وعناصر التحكم
+   ========================================================================== */
+.admin-main {
+    padding-top: 32px;
+    padding-bottom: 60px;
+}
+
 .admin-tabs {
     display: flex;
     gap: 8px;
@@ -339,14 +211,102 @@ small {
 }
 
 /* ==========================================================================
-   البطاقات والشبكات (Cards & Grids)
+   تنسيق بطاقات رسائل العملاء (Message Cards)
+   ========================================================================== */
+.messages-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* بطاقة الرسالة الوحيدة */
+.message-card, 
+.messages-grid > div:not(.loading-box) {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: var(--transition);
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.message-card:hover, 
+.messages-grid > div:not(.loading-box):hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    background-color: var(--bg-card-hover);
+}
+
+/* الجزء العلوي للبطاقة: البريد الإلكتروني والخدمة والتاريخ */
+.message-header, 
+.message-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.message-email, 
+.sender-email {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 1rem;
+    direction: ltr;
+    unicode-bidi: embed;
+}
+
+.message-service, 
+.service-badge {
+    background-color: rgba(79, 70, 229, 0.15);
+    color: #818cf8;
+    border: 1px solid rgba(79, 70, 229, 0.3);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.message-date, 
+.message-time {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+/* محتوى الرسالة */
+.message-content, 
+.message-body, 
+.message-text {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* منطقة الأزرار داخل البطاقة */
+.message-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   تنسيق نموذج إدخال بطاقات المشاريع
    ========================================================================== */
 .admin-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: 28px;
-    box-shadow: var(--shadow-sm);
 }
 
 .project-form-card {
@@ -360,16 +320,170 @@ small {
     padding-bottom: 12px;
 }
 
-.messages-grid,
+.form-field {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-field label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.form-field input,
+.form-field textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    outline: none;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.image-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--border-color);
+}
+
+.divider-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+small {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   شبكة المشاريع المضافة (Projects Grid)
+   ========================================================================== */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
 }
 
-.admin-projects-wrapper h3 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+.project-card, 
+.projects-grid > div:not(.loading-box) {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.project-card h4 {
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.project-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.project-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+/* ==========================================================================
+   الأزرار العامة (Buttons)
+   ========================================================================== */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.button-primary {
+    background-color: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 14px var(--primary-glow);
+}
+
+.button-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.button-secondary {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.button-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-danger, 
+.delete-btn {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-danger:hover, 
+.delete-btn:hover {
+    background-color: var(--danger);
+    color: #ffffff;
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.form-status {
+    margin-top: 16px;
+    font-size: 0.9rem;
+    text-align: center;
+    min-height: 20px;
 }
 
 .loading-box {
@@ -381,21 +495,4 @@ small {
     border-radius: var(--radius-md);
     color: var(--text-muted);
     font-weight: 600;
-}
-
-/* ==========================================================================
-   التجاوب مع كافة الشاشات (Responsive)
-   ========================================================================== */
-@media (max-width: 768px) {
-    .header-inner {
-        flex-direction: column;
-        gap: 16px;
-        align-items: flex-start;
-    }
-    
-    .admin-tabs {
-        overflow-x: auto;
-        white-space: nowrap;
-        width: 100%;
-    }
 }
