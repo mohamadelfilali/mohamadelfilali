@@ -671,5 +671,30 @@ document.addEventListener("DOMContentLoaded", () => {
     window.MohamadProjects = {
         render: renderProjects
     };
+// =====================================================
+    // جلب المشاريع تلقائياً من الخادم الخلفي لصفحة العملاء
+    // =====================================================
+    async function loadPublicProjects() {
+        if (!API_URL) return;
 
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "getProjects" })
+            });
+
+            if (!response.ok) return;
+
+            const data = await response.json();
+            if (data && data.success && Array.isArray(data.projects)) {
+                renderProjects(data.projects);
+            }
+        } catch (err) {
+            console.error("فشل جلب المشاريع للواجهة العامة:", err);
+        }
+    }
+
+    // تشغيل جلب المشاريع عند فتح الصفحة
+    loadPublicProjects();
 });
