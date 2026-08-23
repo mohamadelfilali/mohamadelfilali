@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // الإعدادات الرئيسية
     // ضع رابط Google Apps Script المفعّل هنا
     // =====================================================
-    const API_URL = "ضع_رابط_APPS_SCRIPT_هنا";
+    const API_URL = "https://script.google.com/macros/s/AKfycbyRlYEPfl1o_AAefu5NwBcc8M9FGBz9p0Vl4fta92klQIKgOXCp_sKCOo3_Pi3M8n5zXg/exec";
 
     // العناصر الأساسية
     const loginScreen = document.getElementById("login-screen");
